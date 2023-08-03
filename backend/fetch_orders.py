@@ -51,9 +51,8 @@ def poll_api_and_save_to_db():
             # Insert or replace the orders into the collection based on 'orderHash'
             for order in orders:
                 order_hash = order.get("orderHash")
-                processed_order = json.dumps(order)
                 collection.update_one({"orderHash": order_hash}, {
-                                      "$set": {"data": processed_order}}, upsert=True)
+                                      "$set": {"data": order}}, upsert=True)
 
             print("Successfully polled and saved data to MongoDB.")
 
